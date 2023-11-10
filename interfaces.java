@@ -9,6 +9,9 @@ public class interfaces implements CollectionTest{
     private LinkedList<Person> peopleLL = new LinkedList<Person>();
     private ArrayList<Person> peopleAL = new ArrayList<Person>();
     private HashMap<Integer, Person> peopleHM = new HashMap<Integer, Person>();
+    public interfaces(){
+
+    }
     public void setSize(int size){
         this.size = size;
     }
@@ -36,7 +39,7 @@ public class interfaces implements CollectionTest{
             }else if(typeOfStructure == CollectionType.ARRAY_LIST){
                 peopleAL.add(i, person);
             }else{
-                peopleHM.put(i, person);
+                peopleHM.put(person.getName().hashCode(), person);
             }
         }
 
@@ -50,20 +53,22 @@ public class interfaces implements CollectionTest{
             return peopleHM.get((int)(size/2));
         }
     }
+
+
     public Person search(){
+        String tName = "Person"+Integer.toString((int)(size/2));
+        if(typeOfStructure == CollectionType.HASH_MAP){
+            return peopleHM.get(tName.hashCode());
+        }
         for(int i = 0; i<size;i++){
+            
             if(typeOfStructure == CollectionType.LINKED_LIST){
-                if(peopleLL.get(i).getName() == "Person"+Integer.toString((int)(size/2))){
+                if(peopleLL.get(i).getName() == tName){
                     return peopleLL.get(i);
                 }
             }else if(typeOfStructure == CollectionType.ARRAY_LIST){
-                if(peopleAL.get(i).getName() == "Person"+Integer.toString((int)(size/2))){
+                if(peopleAL.get(i).getName() == tName){
                     return peopleAL.get(i);
-                }
-            }else{
-                if(peopleHM.get(i).getName() == "Person"+Integer.toString((int)(size/2))){
-                    System.out.println(peopleHM.get(i).getName());
-                    return peopleHM.get(i);
                 }
             }
         }
